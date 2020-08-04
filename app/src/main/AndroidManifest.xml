@@ -10,7 +10,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.opannapo.mvvmexample.views.MainActivity"
-            android:label="MVVM Example"
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan">
