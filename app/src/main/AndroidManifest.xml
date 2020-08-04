@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.opannapo.mvvmexample.views.activities.main.MainActivity"
+            android:name="com.opannapo.mvvmexample.views.activities.splash.SplashActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
