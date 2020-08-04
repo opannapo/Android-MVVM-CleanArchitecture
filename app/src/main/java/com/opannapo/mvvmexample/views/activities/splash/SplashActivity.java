@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.opannapo.core.layer.application.presenter.view.BaseActivity;
 import com.opannapo.mvvmexample.R;
-import com.opannapo.mvvmexample.entities.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,12 +26,15 @@ public class SplashActivity extends BaseActivity {
     ProgressBar progressBar;
 
 
-    final Observer<User> liveUser = data -> {
-        txtLoadingMsg.setText(data.getName());
+    final Observer<String> liveSync = data -> {
+        txtLoadingMsg.setText(data);
         progressBar.setVisibility(View.GONE);
     };
 
-    final Observer<Integer> liveLoadingState = data -> progressBar.setVisibility(data == 1 ? View.VISIBLE : View.GONE);
+    final Observer<Integer> liveLoadingState = data -> {
+        progressBar.setVisibility(data == 1 ? View.VISIBLE : View.GONE);
+
+    };
 
     final Observer<String> liveLoadingMessage = data -> txtLoadingMsg.setText(data);
 
@@ -47,10 +49,10 @@ public class SplashActivity extends BaseActivity {
 
         vm = new ViewModelProvider(this).get(SplashVM.class);
 
-        vm.liveUser.observe(this, liveUser);
+        vm.liveSync.observe(this, liveSync);
         vm.liveLoadingState.observe(this, liveLoadingState);
         vm.liveLoadingMessage.observe(this, liveLoadingMessage);
 
-        vm.getUser("opannapo");
+        vm.firstSync();
     }
 }

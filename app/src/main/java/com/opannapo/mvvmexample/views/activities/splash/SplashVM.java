@@ -3,7 +3,6 @@ package com.opannapo.mvvmexample.views.activities.splash;
 import androidx.lifecycle.MutableLiveData;
 
 import com.opannapo.core.layer.application.presenter.view.BaseViewModel;
-import com.opannapo.mvvmexample.entities.User;
 import com.opannapo.mvvmexample.usecases.splash.SplashUseCase;
 import com.opannapo.mvvmexample.usecases.splash.SplashUseCaseImpl;
 
@@ -13,7 +12,7 @@ import com.opannapo.mvvmexample.usecases.splash.SplashUseCaseImpl;
 public class SplashVM extends BaseViewModel<SplashUseCaseImpl> implements SplashUseCase.View {
     protected MutableLiveData<Integer> liveLoadingState = new MutableLiveData<>(); //1 loading
     protected MutableLiveData<String> liveLoadingMessage = new MutableLiveData<>(); //1 loading
-    protected MutableLiveData<User> liveUser = new MutableLiveData<>();
+    protected MutableLiveData<String> liveSync = new MutableLiveData<>();
 
     @Override
     protected SplashUseCaseImpl initUseCase() {
@@ -21,8 +20,8 @@ public class SplashVM extends BaseViewModel<SplashUseCaseImpl> implements Splash
     }
 
     @Override
-    public void getUser(String val) {
-        useCase.doGetUser(val);
+    public void firstSync() {
+        useCase.doSync();
     }
 
     @Override
@@ -32,8 +31,8 @@ public class SplashVM extends BaseViewModel<SplashUseCaseImpl> implements Splash
     }
 
     @Override
-    public void onUserResult(User val) {
+    public void onSyncResult(String val) {
         liveLoadingState.postValue(0);//Is Completed
-        liveUser.postValue(val);
+        liveSync.postValue(val);
     }
 }
