@@ -8,7 +8,7 @@ import com.opannapo.mvvmexample.R;
 /**
  * Created by napouser on 04,August,2020
  */
-class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected int initLayout() {
