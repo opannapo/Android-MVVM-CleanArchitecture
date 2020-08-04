@@ -3,7 +3,7 @@ package com.opannapo.core.config;
 /**
  * Created by napouser on 04,August,2020
  */
-class LogConfig {
+public class LogConfig {
     private StackTraceElement[] stackTraceElements;
     private String TAG;
     public String TAG_ADDITION;
