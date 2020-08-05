@@ -7,8 +7,10 @@ import com.opannapo.core.layer.enterprise.business.local.room.entities.Owner;
 /**
  * Created by napouser on 05,August,2020
  */
-public interface OwnerRules {
-    void get(RoomGetOneCallback callback);
+public interface OwnerRules<T> {
+    void get(RoomGetOneCallback<T> callback);
+
+    void insert(Owner owner, RoomTransactionalCallback callback);
 
     void update(Owner owner, RoomTransactionalCallback callback);
 }
