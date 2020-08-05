@@ -11,7 +11,7 @@ import com.opannapo.mvvmexample.usecases.splash.SplashUseCaseImpl;
  */
 public class SplashVM extends BaseViewModel<SplashUseCaseImpl> implements SplashUseCase.View {
     protected MutableLiveData<Integer> liveLoadingState = new MutableLiveData<>(); //1 loading
-    protected MutableLiveData<String> liveLoadingMessage = new MutableLiveData<>(); //1 loading
+    protected MutableLiveData<String> liveLoadingMessage = new MutableLiveData<>();
     protected MutableLiveData<String> liveSync = new MutableLiveData<>();
 
     @Override

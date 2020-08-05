@@ -1,5 +1,6 @@
 package com.opannapo.mvvmexample.views.activities.splash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.opannapo.core.layer.application.presenter.view.BaseActivity;
 import com.opannapo.mvvmexample.R;
+import com.opannapo.mvvmexample.views.activities.main.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +35,10 @@ public class SplashActivity extends BaseActivity {
 
     final Observer<Integer> liveLoadingState = data -> {
         progressBar.setVisibility(data == 1 ? View.VISIBLE : View.GONE);
-
+        if (data == 1) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
     };
 
     final Observer<String> liveLoadingMessage = data -> txtLoadingMsg.setText(data);

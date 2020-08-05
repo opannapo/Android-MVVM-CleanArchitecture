@@ -13,7 +13,6 @@ public class SplashUseCaseImpl extends BaseUseCase<SplashUseCase.View> implement
         super(view);
     }
 
-
     @SuppressLint("DefaultLocale")
     @Override
     public void doSync() {
