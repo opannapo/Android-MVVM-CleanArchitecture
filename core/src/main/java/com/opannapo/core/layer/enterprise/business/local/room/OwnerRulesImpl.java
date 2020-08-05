@@ -1,41 +1,35 @@
 package com.opannapo.core.layer.enterprise.business.local.room;
 
+import android.content.Context;
+
 import com.opannapo.core.layer.enterprise.business.local.room.callbacks.RoomGetOneCallback;
 import com.opannapo.core.layer.enterprise.business.local.room.callbacks.RoomTransactionalCallback;
 import com.opannapo.core.layer.enterprise.business.local.room.entities.Owner;
-import com.opannapo.core.layer.enterprise.business.local.room.exceptions.RoomConfigException;
 import com.opannapo.core.layer.interfaces.local.OwnerRules;
 
 /**
  * Created by napouser on 05,August,2020
  */
-class OwnerRulesImpl implements OwnerRules<Owner> {
-    private static RoomDB db;
-
-    public OwnerRulesImpl() {
-        try {
-            db = RoomDB.getInstance();
-        } catch (RoomConfigException e) {
-            e.printStackTrace();
-        }
+public class OwnerRulesImpl implements OwnerRules<Owner> {
+    @Override
+    public void get(Context context, RoomGetOneCallback<Owner> callback) {
+        new Thread(() -> {
+            Owner owner = RoomDB.getInstance(context).ownerDao().get(1);
+            callback.onComplete(true, owner, null);
+        }, "TOwnerRulesImpl.get").start();
     }
 
     @Override
-    public void get(RoomGetOneCallback<Owner> callback) {
-        if (db == null) {
-            callback.onComplete(false, new Owner(), "No DB Initial");
-            return;
-        }
-        callback.onComplete(true, null, null);
+    public void insert(Context context, Owner owner, RoomTransactionalCallback callback) {
+        callback.onProgress("insert");
+        new Thread(() -> {
+            RoomDB.getInstance(context).ownerDao().insert(owner);
+            callback.onComplete(true, null);
+        }, "TOwnerRulesImpl.insert").start();
     }
 
     @Override
-    public void insert(Owner owner, RoomTransactionalCallback callback) {
-
-    }
-
-    @Override
-    public void update(Owner owner, RoomTransactionalCallback callback) {
+    public void update(Context context, Owner owner, RoomTransactionalCallback callback) {
 
     }
 }

@@ -1,5 +1,7 @@
 package com.opannapo.core.layer.enterprise.business.local.room;
 
+import android.content.Context;
+
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -9,7 +11,6 @@ import com.opannapo.core.layer.enterprise.business.local.room.dao.OwnerDao;
 import com.opannapo.core.layer.enterprise.business.local.room.dao.UserDao;
 import com.opannapo.core.layer.enterprise.business.local.room.entities.Owner;
 import com.opannapo.core.layer.enterprise.business.local.room.entities.User;
-import com.opannapo.core.layer.enterprise.business.local.room.exceptions.RoomConfigException;
 
 /**
  * Created by napouser on 05,August,2020
@@ -20,33 +21,24 @@ public abstract class RoomDB extends RoomDatabase {
     private static volatile RoomDB instance;
     private static RoomDbConfig config;
 
-    public static RoomDbConfig buildConfig() {
-        if (config == null) {
-            config = new RoomDbConfig();
-        }
-        return config;
-    }
-
-    public static RoomDB getInstance() throws RoomConfigException {
-        if (config == null) throw new RoomConfigException("No Initial Config");
-
+    public static synchronized RoomDB getInstance(Context context) {
         if (instance == null) {
-            instance = create();
+            instance = create(context);
         }
         return instance;
     }
 
-    public static void destroyInstance() {
+    public static synchronized void destroyInstance() {
         if (instance != null) {
             instance.close();
             instance = null;
         }
     }
 
-    private static RoomDB create() {
-        return Room.databaseBuilder(config.getAppContext(),
-                RoomDB.class,
-                DB_NAME).build();
+    private static RoomDB create(Context context) {
+        return Room.databaseBuilder(context, RoomDB.class, DB_NAME)
+                .setJournalMode(JournalMode.WRITE_AHEAD_LOGGING)
+                .build();
     }
 
     public abstract UserDao userDao();

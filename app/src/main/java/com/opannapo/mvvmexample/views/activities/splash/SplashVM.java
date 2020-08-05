@@ -1,5 +1,7 @@
 package com.opannapo.mvvmexample.views.activities.splash;
 
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.opannapo.core.layer.application.presenter.view.BaseViewModel;
@@ -20,8 +22,8 @@ public class SplashVM extends BaseViewModel<SplashUseCaseImpl> implements Splash
     }
 
     @Override
-    public void firstSync() {
-        useCase.doSync();
+    public void firstSync(Context context) {
+        useCase.doSync(context);
     }
 
     @Override

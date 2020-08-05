@@ -3,6 +3,7 @@ package com.opannapo.core.layer.enterprise.business.local.room.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -18,7 +19,7 @@ public interface UserDao {
     @Query("SELECT * FROM USER ORDER BY ID")
     List<User> findAll();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertOne(User user);
 
     @Update

@@ -58,6 +58,6 @@ public class SplashActivity extends BaseActivity {
         vm.liveLoadingState.observe(this, liveLoadingState);
         vm.liveLoadingMessage.observe(this, liveLoadingMessage);
 
-        vm.firstSync();
+        vm.firstSync(this);
     }
 }
