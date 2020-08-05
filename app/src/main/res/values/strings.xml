@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidMvvmExample</string>
+    <string name="title_nav_home">Home</string>
+    <string name="title_nav_profile">Profile</string>
 </resources>
