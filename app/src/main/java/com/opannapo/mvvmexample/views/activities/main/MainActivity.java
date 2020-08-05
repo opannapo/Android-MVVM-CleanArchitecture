@@ -6,8 +6,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.opannapo.core.layer.application.presenter.view.BaseActivity;
 import com.opannapo.mvvmexample.R;
 
@@ -26,6 +28,10 @@ public class MainActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.toolbarRoot)
     AppBarLayout toolbarRoot;
+    @BindView(R.id.bottomNavigation)
+    BottomNavigationView bottomNavigation;
+    @BindView(R.id.vpPages)
+    ViewPager vpPages;
 
     @Override
     protected int initLayout() {

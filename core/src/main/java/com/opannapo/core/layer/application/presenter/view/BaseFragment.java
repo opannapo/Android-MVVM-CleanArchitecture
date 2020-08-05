@@ -52,7 +52,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void onCreated(Bundle savedInstanceState, View view);
 
-    public abstract void notifyAction(String tag, Object... args);
+    public abstract void onAction(String tag, Object... args);
 }
 
 
