@@ -2,9 +2,9 @@ package com.opannapo.core.layer.enterprise.business.local.room;
 
 import android.content.Context;
 
+import com.opannapo.core.layer.application.domain.Owner;
 import com.opannapo.core.layer.enterprise.business.local.room.callbacks.RoomGetOneCallback;
 import com.opannapo.core.layer.enterprise.business.local.room.callbacks.RoomTransactionalCallback;
-import com.opannapo.core.layer.enterprise.business.local.room.entities.Owner;
 import com.opannapo.core.layer.interfaces.local.OwnerRules;
 
 /**
@@ -30,6 +30,10 @@ public class OwnerRulesImpl implements OwnerRules<Owner> {
 
     @Override
     public void update(Context context, Owner owner, RoomTransactionalCallback callback) {
-
+        callback.onProgress("insert");
+        new Thread(() -> {
+            RoomDB.getInstance(context).ownerDao().update(owner);
+            callback.onComplete(true, null);
+        }, "TOwnerRulesImpl.update").start();
     }
 }

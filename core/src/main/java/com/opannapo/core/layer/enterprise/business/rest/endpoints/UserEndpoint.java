@@ -10,12 +10,12 @@ import retrofit2.http.Query;
 /**
  * Created by napouser on 05,August,2020
  */
-public interface User<T> {
+public interface UserEndpoint {
     @Headers({"Accept: application/json", "Content-Type: application/json",})
-    @GET()
+    @GET("users")
     Call<JsonObject> getAll(@Query("page") int page);
 
     @Headers({"Accept: application/json", "Content-Type: application/json",})
-    @GET()
+    @GET("users?per_page=20")
     Call<JsonObject> getAll();
 }

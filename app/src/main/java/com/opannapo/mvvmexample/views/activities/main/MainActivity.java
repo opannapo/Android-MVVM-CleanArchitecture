@@ -13,14 +13,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.opannapo.core.layer.application.domain.Owner;
 import com.opannapo.core.layer.application.presenter.view.BaseActivity;
 import com.opannapo.core.layer.application.presenter.view.BaseFragment;
 import com.opannapo.core.layer.enterprise.utils.Log;
 import com.opannapo.mvvmexample.R;
-import com.opannapo.mvvmexample.entities.User;
 import com.opannapo.mvvmexample.views.adapter.ViewPagerAdapter;
-import com.opannapo.mvvmexample.views.fragments.HomeFragment;
-import com.opannapo.mvvmexample.views.fragments.ProfileFragment;
+import com.opannapo.mvvmexample.views.fragments.home.HomeFragment;
+import com.opannapo.mvvmexample.views.fragments.profile.ProfileFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,19 +64,11 @@ public class MainActivity extends BaseActivity {
         initialFragmentMember();
         initialNavigation();
 
-        final Observer<User> liveUser = data -> {
-            txtProfileName.setText(data.getName());
-            progressBar.setVisibility(View.GONE);
-        };
-
-        final Observer<Integer> liveLoadingState = data -> progressBar.setVisibility(data == 1 ? View.VISIBLE : View.GONE);
-
-
         vm = new ViewModelProvider(this).get(MainVM.class);
-        vm.liveUser.observe(this, liveUser);
+        vm.liveOwner.observe(this, liveUser);
         vm.liveLoadingState.observe(this, liveLoadingState);
 
-        vm.getMyProfile();
+        vm.getMyProfile(this);
     }
 
     private void initialNavigation() {
@@ -132,7 +124,13 @@ public class MainActivity extends BaseActivity {
                 Log.i("ViewPager onPageScrollStateChanged, state: " + state);
             }
         });
-
-
     }
+
+    final Observer<Owner> liveUser = data -> {
+        if (data == null) return;
+        txtProfileName.setText(data.getFirstName() + " " + data.getLastName());
+        progressBar.setVisibility(View.GONE);
+    };
+
+    final Observer<Integer> liveLoadingState = data -> progressBar.setVisibility(data == 1 ? View.VISIBLE : View.GONE);
 }

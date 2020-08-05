@@ -1,12 +1,13 @@
-package com.opannapo.core.layer.enterprise.business.local.room.entities;
+package com.opannapo.core.layer.application.domain;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
  * Created by napouser on 05,August,2020
  */
-@Entity(tableName = "user")
+@Entity(tableName = "user", indices = {@Index(value = "id")})
 public class User {
     @PrimaryKey(autoGenerate = true)
     int id;
@@ -53,5 +54,17 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", avatar='" + avatar + '\'' +
+                '}';
     }
 }

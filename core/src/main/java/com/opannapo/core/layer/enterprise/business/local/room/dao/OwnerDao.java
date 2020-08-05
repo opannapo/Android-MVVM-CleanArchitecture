@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.opannapo.core.layer.enterprise.business.local.room.entities.Owner;
+import com.opannapo.core.layer.application.domain.Owner;
 
 /**
  * Created by napouser on 05,August,2020

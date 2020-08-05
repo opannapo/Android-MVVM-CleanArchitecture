@@ -34,7 +34,7 @@ public class SplashVM extends BaseViewModel<SplashUseCaseImpl> implements Splash
 
     @Override
     public void onSyncResult(String val) {
-        liveLoadingState.postValue(0);//Is Completed
         liveSync.postValue(val);
+        liveLoadingState.postValue(0);//Is Completed
     }
 }

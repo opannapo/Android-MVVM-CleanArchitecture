@@ -1,9 +1,11 @@
 package com.opannapo.mvvmexample.views.activities.main;
 
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.opannapo.core.layer.application.domain.Owner;
 import com.opannapo.core.layer.application.presenter.view.BaseViewModel;
-import com.opannapo.mvvmexample.entities.User;
 import com.opannapo.mvvmexample.usecases.main.MainUseCase;
 import com.opannapo.mvvmexample.usecases.main.MainUseCaseImpl;
 
@@ -11,9 +13,9 @@ import com.opannapo.mvvmexample.usecases.main.MainUseCaseImpl;
  * Created by napouser on 05,August,2020
  */
 public class MainVM extends BaseViewModel<MainUseCaseImpl> implements MainUseCase.View {
-    protected MutableLiveData<Integer> liveLoadingState = new MutableLiveData<>(); //1 loading
-    protected MutableLiveData<String> liveLoadingMessage = new MutableLiveData<>();
-    protected MutableLiveData<User> liveUser = new MutableLiveData<>();
+    public MutableLiveData<Integer> liveLoadingState = new MutableLiveData<>(); //1 loading
+    public MutableLiveData<String> liveLoadingMessage = new MutableLiveData<>();
+    public MutableLiveData<Owner> liveOwner = new MutableLiveData<>();
 
 
     @Override
@@ -22,9 +24,9 @@ public class MainVM extends BaseViewModel<MainUseCaseImpl> implements MainUseCas
     }
 
     @Override
-    public void getMyProfile() {
+    public void getMyProfile(Context context) {
         liveLoadingState.postValue(1);
-        useCase.doGetMyProfile();
+        useCase.doGetMyProfile(context);
     }
 
     @Override
@@ -33,8 +35,8 @@ public class MainVM extends BaseViewModel<MainUseCaseImpl> implements MainUseCas
     }
 
     @Override
-    public void onUserResult(User user) {
+    public void onUserResult(Owner owner) {
         liveLoadingState.postValue(0);
-        liveUser.postValue(user);
+        liveOwner.postValue(owner);
     }
 }

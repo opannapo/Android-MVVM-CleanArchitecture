@@ -9,8 +9,8 @@ import androidx.room.RoomDatabase;
 import com.opannapo.core.config.RoomDbConfig;
 import com.opannapo.core.layer.enterprise.business.local.room.dao.OwnerDao;
 import com.opannapo.core.layer.enterprise.business.local.room.dao.UserDao;
-import com.opannapo.core.layer.enterprise.business.local.room.entities.Owner;
-import com.opannapo.core.layer.enterprise.business.local.room.entities.User;
+import com.opannapo.core.layer.application.domain.Owner;
+import com.opannapo.core.layer.application.domain.User;
 
 /**
  * Created by napouser on 05,August,2020

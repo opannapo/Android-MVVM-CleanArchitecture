@@ -1,12 +1,13 @@
-package com.opannapo.core.layer.enterprise.business.local.room.entities;
+package com.opannapo.core.layer.application.domain;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
  * Created by napouser on 05,August,2020
  */
-@Entity(tableName = "owner")
+@Entity(tableName = "owner", indices = {@Index(value = "id")})
 public class Owner {
     @PrimaryKey(autoGenerate = true)
     int id;

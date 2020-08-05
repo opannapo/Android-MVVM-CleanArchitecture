@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.opannapo.core.layer.enterprise.business.local.room.entities.User;
+import com.opannapo.core.layer.application.domain.User;
 
 import java.util.List;
 
@@ -21,6 +21,9 @@ public interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertOne(User user);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<User> users);
 
     @Update
     void updateOne(User user);
