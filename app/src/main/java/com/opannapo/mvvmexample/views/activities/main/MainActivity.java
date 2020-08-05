@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.opannapo.core.layer.application.presenter.view.BaseActivity;
 import com.opannapo.core.layer.application.presenter.view.BaseFragment;
@@ -33,8 +32,6 @@ public class MainActivity extends BaseActivity {
     TextView txtProfileName;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.toolbarRoot)
-    AppBarLayout toolbarRoot;
     @BindView(R.id.bottomNavigation)
     BottomNavigationView bottomNavigation;
     @BindView(R.id.vpPages)
@@ -53,10 +50,28 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreated(Bundle savedInstanceState) {
         ButterKnife.bind(this);
-        setupFragmentMember();
+        initialFragmentMember();
+        initialNavigation();
     }
 
-    private void setupFragmentMember() {
+    private void initialNavigation() {
+        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navPageHome:
+                    if (currentFragment == homeFragment) return false;
+                    vpPages.setCurrentItem(0, true);
+                    return true;
+                case R.id.navPageProfile:
+                    if (currentFragment == profileFragment) return false;
+                    vpPages.setCurrentItem(1, true);
+                    return true;
+                default:
+                    return false;
+            }
+        });
+    }
+
+    private void initialFragmentMember() {
         vpAdapter = new ViewPagerAdapter(this.getSupportFragmentManager(), appbar_scrolling_view_behavior);
         homeFragment = new HomeFragment();
         profileFragment = new ProfileFragment();
@@ -69,20 +84,24 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 Log.i("ViewPager onPageScrolled, position: " + position);
-                switch (position) {
-                    case 0:
-                        currentFragment = homeFragment;
-                        break;
-                    case 1:
-                        currentFragment = profileFragment;
-                        break;
-                }
-                currentFragment.onHiddenChanged(false);
             }
 
             @Override
             public void onPageSelected(int position) {
                 Log.i("ViewPager onPageSelected, position: " + position);
+                switch (position) {
+                    case 0:
+                        currentFragment = homeFragment;
+                        //bottomNavigation.setSelectedItemId(R.id.navPageHome);
+                        bottomNavigation.getMenu().getItem(0).setChecked(true);
+                        break;
+                    case 1:
+                        currentFragment = profileFragment;
+                        //bottomNavigation.setSelectedItemId(R.id.navPageProfile);
+                        bottomNavigation.getMenu().getItem(1).setChecked(true);
+                        break;
+                }
+                currentFragment.onHiddenChanged(false);
             }
 
             @Override

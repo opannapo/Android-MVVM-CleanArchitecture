@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/pageHome"
+        android:id="@+id/navPageHome"
         android:enabled="true"
         android:icon="@android:drawable/ic_media_next"
         android:title="@string/title_nav_home" />
     <item
-        android:id="@+id/pageProfile"
+        android:id="@+id/navPageProfile"
         android:enabled="true"
         android:icon="@android:drawable/ic_delete"
         android:title="@string/title_nav_profile" />

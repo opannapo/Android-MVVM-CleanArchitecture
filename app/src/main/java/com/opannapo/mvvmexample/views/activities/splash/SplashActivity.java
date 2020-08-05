@@ -35,7 +35,7 @@ public class SplashActivity extends BaseActivity {
 
     final Observer<Integer> liveLoadingState = data -> {
         progressBar.setVisibility(data == 1 ? View.VISIBLE : View.GONE);
-        if (data == 1) {
+        if (data == 0) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
