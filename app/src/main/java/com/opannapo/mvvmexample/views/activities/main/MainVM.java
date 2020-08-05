@@ -23,16 +23,18 @@ public class MainVM extends BaseViewModel<MainUseCaseImpl> implements MainUseCas
 
     @Override
     public void getMyProfile() {
+        liveLoadingState.postValue(1);
         useCase.doGetMyProfile();
     }
 
     @Override
     public void onProcessing(String msg) {
-
+        liveLoadingMessage.postValue(msg);
     }
 
     @Override
     public void onUserResult(User user) {
-
+        liveLoadingState.postValue(0);
+        liveUser.postValue(user);
     }
 }
