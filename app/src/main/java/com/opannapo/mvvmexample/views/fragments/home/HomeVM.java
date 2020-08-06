@@ -4,7 +4,6 @@ import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.opannapo.core.layer.application.domain.Owner;
 import com.opannapo.core.layer.application.domain.User;
 import com.opannapo.core.layer.application.presenter.view.BaseViewModel;
 import com.opannapo.mvvmexample.usecases.home.HomeUseCase;
@@ -18,17 +17,10 @@ import java.util.List;
 public class HomeVM extends BaseViewModel<HomeUseCaseImpl> implements HomeUseCase.View {
     public MutableLiveData<Integer> liveLoadingState = new MutableLiveData<>(); //1 loading
     public MutableLiveData<List<User>> liveUsers = new MutableLiveData<>();
-    public MutableLiveData<Owner> liveOwner = new MutableLiveData<>();
-
 
     @Override
     protected HomeUseCaseImpl initUseCase() {
         return new HomeUseCaseImpl(this);
-    }
-
-    @Override
-    public void getMyProfile(Context context) {
-        useCase.doGetMyProfile(context);
     }
 
     @Override
@@ -47,9 +39,4 @@ public class HomeVM extends BaseViewModel<HomeUseCaseImpl> implements HomeUseCas
         liveUsers.postValue(users);
     }
 
-    @Override
-    public void onMyProfileResult(Owner owner) {
-        liveLoadingState.postValue(0);
-        liveOwner.postValue(owner);
-    }
 }
