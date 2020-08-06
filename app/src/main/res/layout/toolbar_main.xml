@@ -11,15 +11,23 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:contentInsetStart="0dp"
+        android:contentInsetLeft="0dp"
+        android:contentInsetEnd="0dp"
+        android:contentInsetRight="0dp"
         android:theme="@style/ToolbarTheme"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:titleTextColor="@color/colorPrimary"
         tools:title="TOOLBAR">
 
         <RelativeLayout
+            android:id="@+id/layContentToolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:background="#000000">
 
             <ImageView
                 android:id="@+id/imgProfile"
@@ -28,7 +36,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="10dp"
-                android:tint="@color/colorPrimary"
                 android:visibility="gone" />
 
             <TextView
@@ -38,6 +45,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="10dp"
                 android:layout_toLeftOf="@+id/imgProfile"
+                android:background="@android:color/transparent"
                 android:gravity="top|end"
                 android:textColor="#FFFFFF"
                 tools:text="txtProfileName" />

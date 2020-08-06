@@ -1,10 +1,12 @@
 package com.opannapo.mvvmexample.views.activities.main;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -42,6 +44,8 @@ public class MainActivity extends BaseActivity<MainVM> {
     ViewPager vpPages;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.layContentToolbar)
+    RelativeLayout layContentToolbar;
 
     HomeFragment homeFragment;
     ProfileFragment profileFragment;
@@ -129,13 +133,17 @@ public class MainActivity extends BaseActivity<MainVM> {
         if (data == null) {
             txtProfileName.setText("No Profile");
             progressBar.setVisibility(View.GONE);
-            return;
+        } else {
+            txtProfileName.setText(
+                    stringInject(R.string.label_toolbar_profile_name,
+                            data.getFirstName(), data.getLastName())
+            );
+            progressBar.setVisibility(View.GONE);
+
+            //Notify User if any changes on this part
+            layContentToolbar.setBackgroundColor(getColor(R.color.colorAccent));
+            layContentToolbar.postDelayed(() -> layContentToolbar.setBackgroundColor(Color.parseColor("#000000")), 1000);
         }
-        txtProfileName.setText(
-                stringInject(R.string.label_toolbar_profile_name,
-                        data.getFirstName(), data.getLastName())
-        );
-        progressBar.setVisibility(View.GONE);
     };
 
     final Observer<Integer> liveLoadingState = data -> progressBar.setVisibility(data == 1 ? View.VISIBLE : View.GONE);
