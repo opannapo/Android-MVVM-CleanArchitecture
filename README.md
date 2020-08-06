@@ -3,7 +3,7 @@
 > Android Combination of MVVM and CleanArchitecture
 
 ## Point on this project
-| Name |
+| Point's |
 | ------ |
 | Project Structure , Split Layer
 | Split Project Module, (Core & Application Layer)
