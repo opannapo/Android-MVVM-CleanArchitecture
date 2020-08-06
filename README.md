@@ -16,4 +16,6 @@
 | Entity/Model as Parcelable & Data Table
 | BestPractice for Constant Type with StringDef & IntDef. (Don't use enumeration)
 | Log Utils  
+| Etc... 
+
 
