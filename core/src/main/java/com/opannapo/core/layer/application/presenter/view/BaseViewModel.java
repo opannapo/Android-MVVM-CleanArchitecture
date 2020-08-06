@@ -7,7 +7,7 @@ import com.opannapo.core.layer.application.presenter.usecase.BaseUseCase;
 /**
  * Created by napouser on 04,August,2020
  */
-public abstract class BaseViewModel<T extends BaseUseCase> extends ViewModel {
+public abstract class BaseViewModel<T extends BaseUseCase<?>> extends ViewModel {
     public T useCase;
 
     public BaseViewModel() {

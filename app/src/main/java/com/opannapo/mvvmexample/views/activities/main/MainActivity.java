@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,9 +29,7 @@ import static com.opannapo.mvvmexample.R2.string.appbar_scrolling_view_behavior;
 /**
  * Created by napouser on 05,August,2020
  */
-public class MainActivity extends BaseActivity {
-    MainVM vm;
-
+public class MainActivity extends BaseActivity<MainVM> {
     @BindView(R.id.imgProfile)
     ImageView imgProfile;
     @BindView(R.id.txtProfileName)
@@ -46,12 +43,15 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
-
     HomeFragment homeFragment;
     ProfileFragment profileFragment;
     ViewPagerAdapter vpAdapter;
-    BaseFragment currentFragment;
+    BaseFragment<?> currentFragment;
 
+    @Override
+    public Class<MainVM> initVM() {
+        return MainVM.class;
+    }
 
     @Override
     protected int initLayout() {
@@ -64,8 +64,7 @@ public class MainActivity extends BaseActivity {
         initialFragmentMember();
         initialNavigation();
 
-        vm = new ViewModelProvider(this).get(MainVM.class);
-        vm.liveOwner.observe(this, liveUser);
+        vm.liveOwner.observe(this, liveOwner);
         vm.liveLoadingState.observe(this, liveLoadingState);
 
         vm.getMyProfile(this);
@@ -126,9 +125,16 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    final Observer<Owner> liveUser = data -> {
-        if (data == null) return;
-        txtProfileName.setText(data.getFirstName() + " " + data.getLastName());
+    final Observer<Owner> liveOwner = data -> {
+        if (data == null) {
+            txtProfileName.setText("No Profile");
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
+        txtProfileName.setText(
+                stringInject(R.string.label_toolbar_profile_name,
+                        data.getFirstName(), data.getLastName())
+        );
         progressBar.setVisibility(View.GONE);
     };
 

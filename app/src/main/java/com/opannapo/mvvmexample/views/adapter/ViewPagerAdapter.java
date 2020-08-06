@@ -10,14 +10,14 @@ import com.opannapo.core.layer.application.presenter.view.BaseFragment;
  * Created by napouser on 05,August,2020
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private final BaseFragment[] fragments = new BaseFragment[2];
+    private final BaseFragment<?>[] fragments = new BaseFragment[2];
 
     public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 
     @Override
-    public BaseFragment getItem(int position) {
+    public BaseFragment<?> getItem(int position) {
         return fragments[position];
     }
 
@@ -26,7 +26,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return fragments.length;
     }
 
-    public void addFragment(int idx, BaseFragment val) {
+    public void addFragment(int idx, BaseFragment<?> val) {
         fragments[idx] = val;
     }
 }

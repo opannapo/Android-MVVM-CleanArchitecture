@@ -7,7 +7,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.opannapo.core.layer.application.presenter.view.BaseActivity;
 import com.opannapo.mvvmexample.R;
@@ -19,14 +18,32 @@ import butterknife.ButterKnife;
 /**
  * Created by napouser on 04,August,2020
  */
-public class SplashActivity extends BaseActivity {
-    SplashVM vm;
-
+public class SplashActivity extends BaseActivity<SplashVM> {
     @BindView(R.id.txtLoadingMsg)
     TextView txtLoadingMsg;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
+    @Override
+    public Class<SplashVM> initVM() {
+        return SplashVM.class;
+    }
+
+    @Override
+    protected int initLayout() {
+        return R.layout.activity_splash;
+    }
+
+    @Override
+    protected void onCreated(Bundle savedInstanceState) {
+        ButterKnife.bind(this);
+
+        vm.liveSync.observe(this, liveSync);
+        vm.liveLoadingState.observe(this, liveLoadingState);
+        vm.liveLoadingMessage.observe(this, liveLoadingMessage);
+
+        vm.firstSync(this);
+    }
 
     final Observer<String> liveSync = data -> {
         txtLoadingMsg.setText(data);
@@ -42,22 +59,4 @@ public class SplashActivity extends BaseActivity {
     };
 
     final Observer<String> liveLoadingMessage = data -> txtLoadingMsg.setText(data);
-
-    @Override
-    protected int initLayout() {
-        return R.layout.activity_splash;
-    }
-
-    @Override
-    protected void onCreated(Bundle savedInstanceState) {
-        ButterKnife.bind(this);
-
-        vm = new ViewModelProvider(this).get(SplashVM.class);
-
-        vm.liveSync.observe(this, liveSync);
-        vm.liveLoadingState.observe(this, liveLoadingState);
-        vm.liveLoadingMessage.observe(this, liveLoadingMessage);
-
-        vm.firstSync(this);
-    }
 }

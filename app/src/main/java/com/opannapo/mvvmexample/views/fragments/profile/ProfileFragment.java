@@ -21,10 +21,7 @@ import butterknife.OnClick;
 /**
  * Created by napouser on 05,August,2020
  */
-public class ProfileFragment extends BaseFragment {
-    MainVM sharedVm;
-    ProfileVM vm;
-
+public class ProfileFragment extends BaseFragment<ProfileVM> {
     @BindView(R.id.btnCreateProfile)
     Button btnCreateProfile;
     @BindView(R.id.edtEmail)
@@ -38,6 +35,13 @@ public class ProfileFragment extends BaseFragment {
     @BindView(R.id.layContent)
     LinearLayout layContent;
 
+    MainVM sharedVm;
+
+    @Override
+    protected Class<ProfileVM> initVM() {
+        return ProfileVM.class;
+    }
+
     @Override
     protected int initLayout() {
         return R.layout.profile_fragment;
@@ -48,10 +52,7 @@ public class ProfileFragment extends BaseFragment {
         ButterKnife.bind(this, view);
 
         sharedVm = new ViewModelProvider(requireActivity()).get(MainVM.class);
-        vm = new ViewModelProvider(this).get(ProfileVM.class);
-
         vm.liveOwner.observe(this, liveOwner);
-
         vm.getMyProfile(requireContext());
     }
 

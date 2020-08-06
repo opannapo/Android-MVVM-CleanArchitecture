@@ -1,10 +1,10 @@
 package com.opannapo.mvvmexample.views.fragments.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +12,8 @@ import com.opannapo.core.layer.application.domain.User;
 import com.opannapo.core.layer.application.presenter.view.BaseFragment;
 import com.opannapo.core.layer.enterprise.utils.Log;
 import com.opannapo.mvvmexample.R;
+import com.opannapo.mvvmexample.etc.Constant;
+import com.opannapo.mvvmexample.views.activities.detail.UserDetailActivity;
 import com.opannapo.mvvmexample.views.adapter.UsersAdapter;
 
 import java.util.ArrayList;
@@ -23,12 +25,16 @@ import butterknife.ButterKnife;
 /**
  * Created by napouser on 05,August,2020
  */
-public class HomeFragment extends BaseFragment {
-    HomeVM vm;
+public class HomeFragment extends BaseFragment<HomeVM> {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     UsersAdapter adapter;
+
+    @Override
+    protected Class<HomeVM> initVM() {
+        return HomeVM.class;
+    }
 
     @Override
     protected int initLayout() {
@@ -39,15 +45,15 @@ public class HomeFragment extends BaseFragment {
     protected void onCreated(Bundle savedInstanceState, View view) {
         ButterKnife.bind(this, view);
 
-        vm = new ViewModelProvider(this).get(HomeVM.class);
-
         vm.liveUsers.observe(this, liveUsers);
         vm.liveLoadingState.observe(this, liveLoadingState);
 
         vm.getAllUsers(requireContext());
 
         adapter = new UsersAdapter(requireContext(), new ArrayList<>(), (i, user) -> {
-
+            Intent intent = new Intent(getContext(), UserDetailActivity.class);
+            intent.putExtra(Constant.IntentExtraKey.USER_DETIAL, user);
+            startActivity(intent);
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);

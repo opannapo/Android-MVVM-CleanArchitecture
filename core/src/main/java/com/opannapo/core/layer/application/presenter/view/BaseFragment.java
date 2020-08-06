@@ -8,18 +8,23 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * Created by napouser on 04,August,2020
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<VM extends BaseViewModel<?>> extends Fragment {
+    public VM vm;
     public BaseFragmentListener listener;
     private int visibilityCount;
 
+    protected abstract Class<VM> initVM();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (initVM() != null) vm = (VM) new ViewModelProvider(this).get(initVM());
+
         View view = inflater.inflate(initLayout(), container, false);
         onCreated(savedInstanceState, view);
         return view;

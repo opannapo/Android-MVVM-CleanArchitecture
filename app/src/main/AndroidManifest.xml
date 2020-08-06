@@ -29,6 +29,10 @@
             android:name=".views.activities.main.MainActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".views.activities.detail.UserDetailActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

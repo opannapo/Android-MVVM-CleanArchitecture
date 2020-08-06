@@ -1,14 +1,13 @@
 package com.opannapo.core.layer.application.presenter.view;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.opannapo.core.layer.application.utils.StringRes;
@@ -16,15 +15,17 @@ import com.opannapo.core.layer.application.utils.StringRes;
 /**
  * Created by napouser on 04,August,2020
  */
-public abstract class BaseActivity extends AppCompatActivity {
-    protected abstract int initLayout();
+public abstract class BaseActivity<VM extends BaseViewModel<?>> extends AppCompatActivity {
+    public VM vm;
 
-    protected abstract void onCreated(Bundle savedInstanceState);
+    protected abstract Class<VM> initVM();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(initLayout());
+
+        if (initVM() != null) vm = (VM) new ViewModelProvider(this).get(initVM());
 
         onCreated(savedInstanceState);
     }
@@ -70,15 +71,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    protected void openSoftKeyboard() {
-        View view = this.getCurrentFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (imm != null && view != null) imm.showSoftInput(view, 0);
-    }
 
-    protected void closeSoftKeyboard() {
-        View view = this.getCurrentFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-        if (imm != null && view != null) imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
+    protected abstract int initLayout();
+
+    protected abstract void onCreated(Bundle savedInstanceState);
+
 }
