@@ -7,7 +7,7 @@
     android:clickable="true"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
@@ -20,22 +20,28 @@
             android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="15dp"
+            android:layout_toLeftOf="@+id/imgProfile"
             android:layout_weight="0.2"
+            android:gravity="right"
             android:text="OpannapO" />
 
         <ImageView
             android:id="@+id/imgProfile"
             android:layout_width="42dp"
             android:layout_height="42dp"
-            android:layout_marginEnd="15dp"
-            android:tint="@color/colorPrimary" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="15dp" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="5dp"
-        android:background="#aaaaaa" />
+        android:background="#FEFEFE" />
 </LinearLayout>

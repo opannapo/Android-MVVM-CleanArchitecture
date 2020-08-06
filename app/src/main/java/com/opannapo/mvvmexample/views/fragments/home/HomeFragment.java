@@ -46,7 +46,7 @@ public class HomeFragment extends BaseFragment {
 
         vm.getAllUsers(requireContext());
 
-        adapter = new UsersAdapter(new ArrayList<>(), (i, user) -> {
+        adapter = new UsersAdapter(requireContext(), new ArrayList<>(), (i, user) -> {
 
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));

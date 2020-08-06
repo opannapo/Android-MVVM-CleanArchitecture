@@ -1,5 +1,6 @@
 package com.opannapo.mvvmexample.views.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.opannapo.core.layer.application.domain.User;
 import com.opannapo.core.layer.enterprise.utils.Log;
 import com.opannapo.mvvmexample.R;
@@ -21,13 +24,15 @@ import java.util.List;
 public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<User> data;
     private OnItemClicklListener listener;
+    private Context context;
 
     private static final int VIEW_TYPE_ITEM_ODD = 1;
     private static final int VIEW_TYPE_ITEM_EVEN = 2;
 
-    public UsersAdapter(List<User> data, OnItemClicklListener listener) {
+    public UsersAdapter(Context context, List<User> data, OnItemClicklListener listener) {
         this.listener = listener;
         this.data = data;
+        this.context = context;
     }
 
     @NonNull
@@ -61,7 +66,7 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    static class ViewHolderItemOdd extends RecyclerView.ViewHolder {
+    class ViewHolderItemOdd extends RecyclerView.ViewHolder {
         TextView txtName;
         ImageView imgProfile;
 
@@ -74,6 +79,14 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         void bind(final User u, final OnItemClicklListener listener) {
             Log.d("adapter live liveUsers user " + u);
             txtName.setText(u.getFirstName());
+            Glide.with(context)
+                    .load(u.getAvatar())
+                    .centerCrop()
+                    .error(R.drawable.baseline_aspect_ratio_black_18dp)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .thumbnail(0.1f)
+                    .circleCrop()
+                    .into(imgProfile);
             itemView.setOnClickListener(view -> {
                 if (listener != null) {
                     listener.onItemClick(getAdapterPosition(), u);
@@ -82,7 +95,7 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    static class ViewHolderItemEven extends RecyclerView.ViewHolder {
+    class ViewHolderItemEven extends RecyclerView.ViewHolder {
         TextView txtName;
         ImageView imgProfile;
 
@@ -94,6 +107,14 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         void bind(final User u, final OnItemClicklListener listener) {
             txtName.setText(u.getFirstName());
+            Glide.with(context)
+                    .load(u.getAvatar())
+                    .centerCrop()
+                    .error(R.drawable.baseline_aspect_ratio_black_18dp)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .thumbnail(0.1f)
+                    .circleCrop()
+                    .into(imgProfile);
             itemView.setOnClickListener(view -> {
                 if (listener != null) {
                     listener.onItemClick(getAdapterPosition(), u);
